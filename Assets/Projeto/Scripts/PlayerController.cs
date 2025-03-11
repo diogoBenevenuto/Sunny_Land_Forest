@@ -115,11 +115,17 @@ public class PlayerController : MonoBehaviour
 
             case "inimigo":
 
+                GameObject tempExplosao = Instantiate(controleGame.hitPrefab,collision.transform.position, collision.transform.localRotation);
+                Destroy(tempExplosao, 0.5f);
+
                 //Adiciona força ao pulo
                 Rigidbody2D rb = GetComponentInParent<Rigidbody2D>();
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0, 600));
-                
+
+                //Som Explosão
+                controleGame.fxGame.PlayOneShot(controleGame.fxExplosao);
+
                 //Destroi inimigo
                 Destroy(collision.gameObject);
 

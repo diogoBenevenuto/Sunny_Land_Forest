@@ -8,10 +8,12 @@ public class ControllerGame : MonoBehaviour
 
     private int score;
     public Text txtScore;
+    public GameObject hitPrefab;
+
 
     public AudioSource fxGame;
-    public AudioClip fxCenoura;
-
+    public AudioClip fxCenoura, fxExplosao;
+   
     public void Pontuacao(int qtdPontos)
     {
         score  += qtdPontos;

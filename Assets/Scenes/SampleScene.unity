@@ -2685,8 +2685,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtScore: {fileID: 1568365820}
+  hitPrefab: {fileID: 1475406788551492016, guid: 2c4064d511d314e439bd99f0ca61a62f, type: 3}
   fxGame: {fileID: 533821611}
   fxCenoura: {fileID: 8300000, guid: 5927e202c0dc74e4a9567c142236c1b2, type: 3}
+  fxExplosao: {fileID: 8300000, guid: 83b3bf0492a93504a96bf518c9355197, type: 3}
 --- !u!4 &838747087
 Transform:
   m_ObjectHideFlags: 0
