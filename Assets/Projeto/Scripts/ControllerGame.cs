@@ -12,7 +12,10 @@ public class ControllerGame : MonoBehaviour
 
 
     public AudioSource fxGame;
-    public AudioClip fxCenoura, fxExplosao;
+    public AudioClip fxCenoura, fxExplosao, fxDie;
+
+    public Sprite[] imgVidas;
+    public Image barraVida;
    
     public void Pontuacao(int qtdPontos)
     {
@@ -20,5 +23,10 @@ public class ControllerGame : MonoBehaviour
         txtScore.text = score.ToString();
 
         fxGame.PlayOneShot(fxCenoura);
+    }
+
+    public void BarraVida(int healthVida)
+    {
+        barraVida.sprite = imgVidas[healthVida];
     }
 }

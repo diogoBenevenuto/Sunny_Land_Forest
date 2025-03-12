@@ -7,9 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     private Animator playerAnimator;
     private Rigidbody2D playerRB2d;
+    private SpriteRenderer srPlayer;
+    private bool playerInvencivel;
+
+    public GameObject playerDie;
 
     public Transform groundCheck;
-
     public bool isGround = false;
 
     public float speed;
@@ -17,6 +20,9 @@ public class PlayerController : MonoBehaviour
     public float touchRun = 0.0f;
 
     public bool facingRight = true;
+
+    public int vidas = 3;
+    public Color hitColor, noHitColor;
 
     //Pulo
     public bool jump = false;
@@ -31,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         playerAnimator = GetComponent<Animator>();
         playerRB2d = GetComponent<Rigidbody2D>();
+        srPlayer = GetComponent<SpriteRenderer>();
 
         controleGame = FindObjectOfType(typeof(ControllerGame)) as ControllerGame;
     }
@@ -132,6 +139,62 @@ public class PlayerController : MonoBehaviour
 
                 break;
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "inimigo":
+                Hurt();
+                break;
+
+        }
+    }
+
+    void Hurt()
+    {
+        if(!playerInvencivel)
+        {
+            playerInvencivel = true;
+
+            vidas--;
+            StartCoroutine("Dano");
+            controleGame.BarraVida(vidas);
+
+            if(vidas < 1 )
+            {
+                GameObject pDieTemp = Instantiate(playerDie, transform.position, Quaternion.identity);
+                Rigidbody2D rbDie = pDieTemp.GetComponent<Rigidbody2D>();
+                rbDie.AddForce(new Vector2(150f, 500f));
+
+                controleGame.fxGame.PlayOneShot(controleGame.fxDie);
+
+                gameObject.SetActive(false);
+            }
+        }
+
+    }
+
+    IEnumerator Dano()
+    {
+        srPlayer.color = noHitColor;
+        yield return new WaitForSeconds(0.1f);
+
+        
+
+
+        for (float i = 0; i < 1; i += 0.1f)
+        {
+            srPlayer.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            srPlayer.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        srPlayer.color = Color.white;
+        playerInvencivel = false;
+
     }
 
 }
