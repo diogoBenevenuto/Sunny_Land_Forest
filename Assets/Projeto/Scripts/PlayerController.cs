@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Cena
+using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
     private Animator playerAnimator;
@@ -170,10 +173,17 @@ public class PlayerController : MonoBehaviour
 
                 controleGame.fxGame.PlayOneShot(controleGame.fxDie);
 
+
+                Invoke("CarregaJogo", 4f);
                 gameObject.SetActive(false);
             }
         }
 
+    }
+
+    void CarregaJogo()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     IEnumerator Dano()
