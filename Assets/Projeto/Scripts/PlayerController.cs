@@ -148,8 +148,23 @@ public class PlayerController : MonoBehaviour
     {
         switch (collision.gameObject.tag)
         {
+            case "plataforma":
+                this.transform.parent = collision.transform; //fazendo o player se tornar filho da plataforma ao colidir
+                break;
+
             case "inimigo":
                 Hurt();
+                break;
+
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "plataforma":
+                this.transform.parent = null; //Removendo o parentesco do player com o objeto
                 break;
 
         }
