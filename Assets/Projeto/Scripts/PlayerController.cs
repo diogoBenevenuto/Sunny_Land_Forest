@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip fxPulo;
 
     public ParticleSystem poeira;
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -147,6 +148,17 @@ public class PlayerController : MonoBehaviour
 
 
                 break;
+
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+       switch(collision.gameObject.tag)
+        {
+            case "damage":
+                Hurt();
+                break;
         }
     }
 
@@ -185,8 +197,9 @@ public class PlayerController : MonoBehaviour
             vidas--;
             StartCoroutine("Dano");
             controleGame.BarraVida(vidas);
+            
 
-            if(vidas < 1 )
+            if (vidas < 1 )
             {
                 GameObject pDieTemp = Instantiate(playerDie, transform.position, Quaternion.identity);
                 Rigidbody2D rbDie = pDieTemp.GetComponent<Rigidbody2D>();
@@ -211,8 +224,6 @@ public class PlayerController : MonoBehaviour
     {
         srPlayer.color = noHitColor;
         yield return new WaitForSeconds(0.1f);
-
-        
 
 
         for (float i = 0; i < 1; i += 0.1f)
