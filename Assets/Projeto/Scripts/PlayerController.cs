@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource fxGame;
     public AudioClip fxPulo;
+
+    public ParticleSystem poeira;
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -86,6 +88,7 @@ public class PlayerController : MonoBehaviour
         if(isGround)
         {
             numberJump = 0;
+            CriarPoeira();
         }
 
         if (isGround || numberJump < maximoJump) // true
@@ -95,12 +98,15 @@ public class PlayerController : MonoBehaviour
             numberJump++;
 
             fxGame.PlayOneShot(fxPulo);
+
+            CriarPoeira();
         }
         jump = false;
     }
 
     void Flip ()
     {
+        CriarPoeira();
         facingRight = !facingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
@@ -220,6 +226,11 @@ public class PlayerController : MonoBehaviour
         srPlayer.color = Color.white;
         playerInvencivel = false;
 
+    }
+
+    void CriarPoeira()
+    {
+        poeira.Play();  
     }
 
 }
